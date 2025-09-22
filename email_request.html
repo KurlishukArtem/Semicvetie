@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Вход в личный кабинет</title>
+  <title>Регистрация</title>
   <style>
     body {
       margin: 0;
@@ -28,7 +28,7 @@
 
     .modal-content {
       background-color: white;
-      width: 400px;
+      width: 550px;
       border-radius: 20px;
       padding: 40px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -46,7 +46,8 @@
     }
 
     .modal-title {
-      font-size: 32px;
+      font-size: 42px;
+      text-align: center;
       font-weight: bold;
       color: #7b006a;
       margin-bottom: 20px;
@@ -85,6 +86,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 10px;
+      margin-top: 10px;
     }
 
     .register-button {
@@ -110,6 +112,12 @@
       font-weight: bold;
     }
 
+    .upper-tip {
+      font-size: 12px;
+      margin-bottom: 5px;
+      margin-left: 20px;
+    }
+
     /* Фоновое изображение */
     .modal-bg {
       position: absolute;
@@ -122,6 +130,12 @@
       background-position: center;
       opacity: 0.1;
       z-index: -1;
+    }
+
+    .small-text {
+      font-size: 12px;
+      margin-bottom: 15px;
+      text-align: center;
     }
 
     a {
@@ -141,19 +155,8 @@
       <div class="modal-header"><a href="index.html">x</a></div>
 
       <!-- Заголовок -->
-      <h2 class="modal-title">Вход<br>в личный<br>кабинет</h2>
-
-      <!-- Форма входа -->
-      <form>
-        <div class="form-group">
-          <input type="text" placeholder="Логин">
-        </div>
-        <div class="form-group">
-          <input type="password" placeholder="Пароль">
-        </div>
-        <button type="submit" class="login-button">Войти</button>
-        <button type="button" class="register-button"><a href="registration.html">Зарегистрироваться</a></button>
-      </form>
+      <h2 class="modal-title">Подтвердите вашу почту</h2>
+      <div class="small-text">Мы выслали на вашу почту письмо, подтвердите вашу почту и возвращайтесь к нам!</div>
     </div>
   </div>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Вход в личный кабинет</title>
+  <title>Регистрация</title>
   <style>
     body {
       margin: 0;
@@ -85,6 +85,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 10px;
+      margin-top: 10px;
     }
 
     .register-button {
@@ -110,6 +111,12 @@
       font-weight: bold;
     }
 
+    .upper-tip {
+      font-size: 12px;
+      margin-bottom: 5px;
+      margin-left: 20px;
+    }
+
     /* Фоновое изображение */
     .modal-bg {
       position: absolute;
@@ -122,6 +129,12 @@
       background-position: center;
       opacity: 0.1;
       z-index: -1;
+    }
+
+    .small-text {
+      font-size: 13px;
+      margin-bottom: 15px;
+      color: #7b006a;
     }
 
     a {
@@ -141,18 +154,24 @@
       <div class="modal-header"><a href="index.html">x</a></div>
 
       <!-- Заголовок -->
-      <h2 class="modal-title">Вход<br>в личный<br>кабинет</h2>
+      <h2 class="modal-title">Регистрация</h2>
+      <div class="small-text">Регистрируйтесь, чтобы получить все возможности франшизы</div>
 
       <!-- Форма входа -->
       <form>
         <div class="form-group">
-          <input type="text" placeholder="Логин">
+          <div class="upper-tip">Введите ваш e-mail</div>
+          <input type="text">
         </div>
         <div class="form-group">
-          <input type="password" placeholder="Пароль">
+          <div class="upper-tip">Придумайте пароль</div>
+          <input type="password">
         </div>
-        <button type="submit" class="login-button">Войти</button>
-        <button type="button" class="register-button"><a href="registration.html">Зарегистрироваться</a></button>
+        <div class="form-group">
+          <div class="upper-tip">Повторите пароль</div>
+          <input type="password">
+        </div>
+        <button type="submit" class="login-button">Зарегистрироваться</button>
       </form>
     </div>
   </div>
