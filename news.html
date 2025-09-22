@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Новости — ЭРА Семицветие</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Общие стили */
+    :root {
+      --primary-color: #5f043d;
+      --primary-light: #5f043d;
+      --secondary-color: #f8f0f6;
+      --text-color: #333;
+      --light-gray: #f4f4f4;
+      --white: #ffffff;
+      --shadow: 0 4px 12px rgba(0,0,0,0.08);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--light-gray);
+      color: var(--text-color);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Хедер */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--white);
+      padding: 15px 20px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo img {
+      width: 170px;
+      height: 40px;
+    }
+
+    .logo span {
+      font-weight: bold;
+      color: var(--white);
+      background-color: var(--primary-color);
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: var(--transition);
+    }
+
+    .logo:hover span {
+      background-color: var(--primary-light);
+    }
+
+    nav ul {
+      list-style-type: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      margin-left: 25px;
+      position: relative;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 600;
+      padding: 5px 0;
+      transition: var(--transition);
+    }
+
+    nav ul li a:hover {
+      color: var(--primary-color);
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary-color);
+      transition: var(--transition);
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    .contact-info {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .contact-info a.phone-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text-color);
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .contact-info a.phone-link:hover {
+      color: var(--primary-color);
+    }
+
+    .academy-link {
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 8px 15px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .academy-link:hover {
+      background-color: var(--primary-light);
+      transform: translateY(-2px);
+    }
+
+    .login-button {
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 8px 18px;
+      border: none;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .login-button:hover {
+      background-color: var(--primary-light);
+      transform: translateY(-2px);
+    }
+
+    /* Breadcrumbs */
+    .breadcrumbs {
+      margin: 20px 0;
+      font-size: 14px;
+      color: var(--primary-color);
+    }
+
+    .breadcrumbs a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .breadcrumbs a:hover {
+      text-decoration: underline;
+    }
+
+    /* Заголовок */
+    h1 {
+      color: var(--primary-color);
+      font-size: 36px;
+      margin-bottom: 30px;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background-color: var(--primary-color);
+    }
+
+    /* Фильтры новостей */
+    .news-filters {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+
+    .filter-button {
+      background-color: var(--white);
+      color: var(--text-color);
+      padding: 8px 20px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 500;
+    }
+
+    .filter-button:hover, .filter-button.active {
+      background-color: var(--primary-color);
+      color: var(--white);
+      border-color: var(--primary-color);
+    }
+
+    /* Карточки новостей */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .news-card {
+      background-color: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .news-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    }
+
+    .news-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .news-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .news-card-content {
+      padding: 20px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .news-card h3 {
+      font-size: 18px;
+      margin: 0 0 10px 0;
+      line-height: 1.4;
+    }
+
+    .news-card p.date {
+      font-size: 14px;
+      color: var(--primary-color);
+      margin: 0 0 15px 0;
+      font-weight: 500;
+    }
+
+    .news-card p.excerpt {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .read-more {
+      align-self: flex-start;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: var(--transition);
+    }
+
+    .read-more:hover {
+      gap: 8px;
+      color: var(--primary-light);
+    }
+
+    /* Кнопка загрузки */
+    .load-more {
+      display: block;
+      margin: 0 auto;
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 12px 35px;
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+      transition: var(--transition);
+    }
+
+    .load-more:hover {
+      background-color: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(123, 0, 106, 0.2);
+    }
+
+    /* Основной контент */
+    main {
+      flex: 1;
+    }
+
+    /* Футер */
+    .footer-section {
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 40px 0 20px;
+      margin-top: 60px;
+    }
+
+    .footer-section h2 {
+      font-size: 28px;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .footer-col {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .footer-col ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-col li {
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+    }
+
+    .footer-col img {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      object-fit: contain;
+    }
+
+    .footer-col a {
+      color: var(--white);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-col a:hover {
+      text-decoration: underline;
+      opacity: 0.9;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 14px;
+    }
+
+    /* Адаптивность */
+    @media (max-width: 992px) {
+      header {
+        flex-wrap: wrap;
+      }
+      
+      nav {
+        order: 3;
+        width: 100%;
+        margin-top: 15px;
+      }
+      
+      nav ul {
+        justify-content: center;
+      }
+      
+      .contact-info {
+        margin-left: auto;
+      }
+      
+      .footer-content {
+        gap: 20px;
+      }
+      
+      .footer-col {
+        flex: 0 0 calc(50% - 20px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .contact-info {
+        display: none;
+      }
+      
+      .news-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      }
+      
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .footer-col {
+        flex: 0 0 100%;
+        text-align: center;
+      }
+      
+      .footer-col li {
+        justify-content: center;
+      }
+      
+      h1 {
+        font-size: 30px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      nav ul {
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+      }
+      
+      nav ul li {
+        margin: 0 10px;
+      }
+      
+      h1 {
+        font-size: 26px;
+      }
+      
+      .footer-section {
+        padding: 30px 0 15px;
+      }
+      
+      .footer-section h2 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <a href="index.html" class="logo">
+      <img src="img/logo.png" alt="Логотип ЭРА Семицветие">
+    </a>
+    <nav>
+      <ul>
+        <li><a href="#">Стоимость</a></li>
+        <li><a href="#">Стандарты</a></li>
+        <li><a href="#" class="active">Новости</a></li>
+        <li><a href="#">Контакты</a></li>
+      </ul>
+    </nav>
+    <div class="contact-info">
+      <a href="tel:+79922131451" class="phone-link">
+        <i class="fas fa-phone"></i>
+        <span>+7 (992) 213-14-51</span>
+      </a>
+      <a href="index.html" class="academy-link">Сайт Академии</a>
+      <button class="login-button">
+        <i class="fas fa-user"></i>
+        <span>Личный кабинет</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Breadcrumbs -->
+    <div class="container">
+      <div class="breadcrumbs">
+        <a href="#"><i class="fas fa-home"></i> Главная</a> / <a href="#">Новости</a>
+      </div>
+    </div>
+
+    <!-- News Section -->
+    <section class="container">
+      <h1>Новости</h1>
+      
+      <div class="news-grid">
+        <!-- Карточка 1 -->
+        <div class="news-card">
+          <img src="img/test_img.png" alt="Новость">
+          <div class="news-card-content">
+            <h3>Открытие нового корпуса академии</h3>
+            <p class="date"><i class="far fa-calendar-alt"></i> 15 сентября 2023</p>
+          </div>
+        </div>
+        
+        <!-- Карточка 2 -->
+        <div class="news-card">
+          <img src="img/test_img.png" alt="Новость">
+          <div class="news-card-content">
+            <h3>Новые программы обучения</h3>
+            <p class="date"><i class="far fa-calendar-alt"></i> 10 сентября 2023</p>
+          </div>
+        </div>
+        
+        <!-- Карточка 3 -->
+        <div class="news-card">
+          <img src="img/test_img.png" alt="Новость">
+          <div class="news-card-content">
+            <h3>День открытых дверей</h3>
+            <p class="date"><i class="far fa-calendar-alt"></i> 5 сентября 2023</p>
+          </div>
+        </div>
+        
+        <!-- Карточка 4 -->
+        <div class="news-card">
+          <img src="img/test_img.png" alt="Новость">
+          <div class="news-card-content">
+            <h3>Партнерство с ведущей компанией</h3>
+            <p class="date"><i class="far fa-calendar-alt"></i> 1 сентября 2023</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-section">
+    <div class="container">
+      <h2>ЭРА СЕМИЦВЕТИЯ</h2>
+      <div class="footer-content">
+        <div class="footer-col">
+          <ul>
+            <li>
+              <img src="https://via.placeholder.com/30x30/ffffff/5f043d?text=ERA" alt="Logo">
+              <span>Политика конфиденциальности</span>
+            </li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <ul>
+            <li><img src="https://via.placeholder.com/20x20/ffffff/5f043d?text=✓" alt="Link Icon"> Тарифы</li>
+            <li><img src="https://via.placeholder.com/20x20/ffffff/5f043d?text=✓" alt="Link Icon"> Стандарты</li>
+            <li><img src="https://via.placeholder.com/20x20/ffffff/5f043d?text=✓" alt="Link Icon"> Новости</li>
+            <li><img src="https://via.placeholder.com/20x20/ffffff/5f043d?text=✓" alt="Link Icon"> Контакты</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <ul>
+            <li><img src="https://via.placeholder.com/20x20/ffffff/5f043d?text=T" alt="Social Media Icon"> Telegram.ru</li>
+            <li><img src="https://via.placeholder.com/20x20/ffffff/5f043d?text=V" alt="Social Media Icon"> VKontakte.ru</li>
+            <li><img src="https://via.placeholder.com/20x20/ffffff/5f043d?text=I" alt="Social Media Icon"> Instagram.ru</li>
+            <li><img src="https://via.placeholder.com/20x20/ffffff/5f043d?text=Y" alt="Social Media Icon"> YouTube.ru</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2023 ЭРА Семицветие. Все права защищены.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
