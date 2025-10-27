@@ -251,6 +251,7 @@
       height: 100%;
       display: flex;
       flex-direction: column;
+      cursor: pointer;
     }
 
     .news-card:hover {
@@ -337,129 +338,189 @@
     /* Основной контент */
     main {
       flex: 1;
+      position: relative;
+    }
+
+    /* Всплывающая карточка */
+    .news-detail-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      
+    }
+
+    .news-detail-overlay.active {
+      opacity: 1;
+      visibility: visible;
+      
+    }
+
+    .news-detail-card {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 90%;
+      max-width: 600px;
+      height: 100%;
+      background-color: var(--white);
+      z-index: 1001;
+      overflow-y: auto;
+      transition: right 0.4s ease;
+      box-shadow: -5px 0 25px rgba(0, 0, 0, 0.2);
+      border-top-left-radius: 30px;
+      border-bottom-left-radius: 30px;
+    }
+
+    .news-detail-card.active {
+      right: 0;
+    }
+
+    .news-detail-header {
+      background-color: var(--primary-color);
+      color: var(--white);
+      padding: 25px;
+      position: relative;
+    }
+
+    .close-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 24px;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .close-button:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .news-detail-title {
+      font-size: 24px;
+      margin-bottom: 10px;
+      padding-right: 50px;
+    }
+
+    .news-detail-date {
+      font-size: 16px;
+      opacity: 0.9;
+    }
+
+    .news-detail-content {
+      padding: 30px;
+    }
+
+    .news-detail-image {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 25px;
+    }
+
+    .news-detail-text {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #555;
+    }
+
+    .news-detail-text p {
+      margin-bottom: 20px;
     }
 
     /* Футер */
     .footer-section {
-      background-color: var(--primary-color);
-      color: var(--white);
-      padding: 40px 0 20px;
-      margin-top: 60px;
-    }
+  background-color: #5f043d;
+  color: white;
+  padding: 20px;
+  margin-top: 30px;
+  border-radius: 10px;
+}
 
-    .footer-section h2 {
-      font-size: 28px;
-      margin-bottom: 25px;
-      text-align: center;
-    }
+.footer-section h2 {
+  font-size: 36px;
+  margin-bottom: 15px; /* Уменьшил отступ */
+  color: white;
+}
 
-    .footer-content {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 30px;
-    }
+.footer-section h2 img {
+  width: 270px;
+  height: 70px;
+}
 
-    .footer-col {
-      flex: 1;
-      min-width: 200px;
-    }
+.footer-section img {
+  width: 20px;
+  height: auto;
+  margin-right: 10px;
+}
 
-    .footer-col ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-    }
+.footer-section a {
+  color: white;
+  text-decoration: none;
+}
 
-    .footer-col li {
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-    }
+.foooter_settings {
+  display: flex;
+  gap: 50px;
+  align-items: flex-start; /* Выравнивание по верху */
+}
 
-    .footer-col img {
-      width: 20px;
-      height: 20px;
-      margin-right: 10px;
-      object-fit: contain;
-    }
+.logo-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Выравнивание по левому краю */
+  min-width: 270px; /* Ширина логотипа */
+}
 
-    .footer-col a {
-      color: var(--white);
-      text-decoration: none;
-      transition: var(--transition);
-    }
+.logo-column p {
+  margin: 0;
+  padding: 0;
+  text-align: left; /* Выравнивание текста по левому краю */
+  width: 100%; /* Занимает всю ширину колонки */
+}
 
-    .footer-col a:hover {
-      text-decoration: underline;
-      opacity: 0.9;
-    }
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex: 1; /* Занимает оставшееся пространство */
+  gap: 30px;
+}
 
-    .footer-bottom {
-      text-align: center;
-      margin-top: 30px;
-      padding-top: 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.2);
-      font-size: 14px;
-    }
+.footer-col {
+  flex: 1;
+}
 
-    /* Адаптивность */
-    @media (max-width: 992px) {
-      header {
-        flex-wrap: wrap;
-      }
-      
-      nav {
-        order: 3;
-        width: 100%;
-        margin-top: 15px;
-      }
-      
-      nav ul {
-        justify-content: center;
-      }
-      
-      .contact-info {
-        margin-left: auto;
-      }
-      
-      .footer-content {
-        gap: 20px;
-      }
-      
-      .footer-col {
-        flex: 0 0 calc(50% - 20px);
-      }
-    }
+.footer-col ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
 
-    @media (max-width: 768px) {
-      .contact-info {
-        display: none;
-      }
-      
-      .news-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      }
-      
-      .footer-content {
-        flex-direction: column;
-        text-align: center;
-      }
-      
-      .footer-col {
-        flex: 0 0 100%;
-        text-align: center;
-      }
-      
-      .footer-col li {
-        justify-content: center;
-      }
-      
-      h1 {
-        font-size: 30px;
-      }
-    }
+.footer-col li {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
 
+.img_settings {
+  display: block; /* Чтобы логотип был блочным элементом */
+}
     @media (max-width: 576px) {
       nav ul {
         flex-wrap: wrap;
@@ -481,6 +542,14 @@
       
       .footer-section h2 {
         font-size: 24px;
+      }
+      
+      .news-detail-content {
+        padding: 20px;
+      }
+      
+      .news-detail-image {
+        height: 200px;
       }
     }
   </style>
@@ -526,78 +595,191 @@
       
       <div class="news-grid">
         <!-- Карточка 1 -->
-        <div class="news-card">
+        <div class="news-card" onclick="openNewsDetail(1)">
           <img src="img/test_img.png" alt="Новость">
           <div class="news-card-content">
             <h3>Открытие нового корпуса академии</h3>
             <p class="date"><i class="far fa-calendar-alt"></i> 15 сентября 2023</p>
+            
           </div>
         </div>
         
         <!-- Карточка 2 -->
-        <div class="news-card">
+        <div class="news-card" onclick="openNewsDetail(2)">
           <img src="img/test_img.png" alt="Новость">
           <div class="news-card-content">
             <h3>Новые программы обучения</h3>
             <p class="date"><i class="far fa-calendar-alt"></i> 10 сентября 2023</p>
+            
           </div>
         </div>
         
         <!-- Карточка 3 -->
-        <div class="news-card">
+        <div class="news-card" onclick="openNewsDetail(3)">
           <img src="img/test_img.png" alt="Новость">
           <div class="news-card-content">
             <h3>День открытых дверей</h3>
             <p class="date"><i class="far fa-calendar-alt"></i> 5 сентября 2023</p>
+           
           </div>
         </div>
         
         <!-- Карточка 4 -->
-        <div class="news-card">
+        <div class="news-card" onclick="openNewsDetail(4)">
           <img src="img/test_img.png" alt="Новость">
           <div class="news-card-content">
             <h3>Партнерство с ведущей компанией</h3>
             <p class="date"><i class="far fa-calendar-alt"></i> 1 сентября 2023</p>
+           
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer class="footer-section">
-    <div class="container">
-      <h2>ЭРА СЕМИЦВЕТИЯ</h2>
-      <div class="footer-content">
-        <div class="footer-col">
-          <ul>
-            <li>
-              <img src="https://via.placeholder.com/30x30/ffffff/5f043d?text=ERA" alt="Logo">
-              <span>Политика конфиденциальности</span>
-            </li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <ul>
-            <li><img src="https://via.placeholder.com/20x20/ffffff/5f043d?text=✓" alt="Link Icon"> Тарифы</li>
-            <li><img src="https://via.placeholder.com/20x20/ffffff/5f043d?text=✓" alt="Link Icon"> Стандарты</li>
-            <li><img src="https://via.placeholder.com/20x20/ffffff/5f043d?text=✓" alt="Link Icon"> Новости</li>
-            <li><img src="https://via.placeholder.com/20x20/ffffff/5f043d?text=✓" alt="Link Icon"> Контакты</li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <ul>
-            <li><img src="https://via.placeholder.com/20x20/ffffff/5f043d?text=T" alt="Social Media Icon"> Telegram.ru</li>
-            <li><img src="https://via.placeholder.com/20x20/ffffff/5f043d?text=V" alt="Social Media Icon"> VKontakte.ru</li>
-            <li><img src="https://via.placeholder.com/20x20/ffffff/5f043d?text=I" alt="Social Media Icon"> Instagram.ru</li>
-            <li><img src="https://via.placeholder.com/20x20/ffffff/5f043d?text=Y" alt="Social Media Icon"> YouTube.ru</li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2023 ЭРА Семицветие. Все права защищены.</p>
+  <!-- Всплывающая карточка с деталями новости -->
+  <div class="news-detail-overlay" onclick="closeNewsDetail()"></div>
+  <div class="news-detail-card">
+    <div class="news-detail-header">
+      <button class="close-button" onclick="closeNewsDetail()">
+        <i class="fas fa-times"></i>
+      </button>
+      <h2 class="news-detail-title" id="detail-title">Заголовок новости</h2>
+      <p class="news-detail-date" id="detail-date"><i class="far fa-calendar-alt"></i> Дата</p>
+    </div>
+    <div class="news-detail-content">
+      <img src="img/test_img.png" alt="Детальное изображение" class="news-detail-image" id="detail-image">
+      <div class="news-detail-text" id="detail-text">
+        <!-- Контент будет заполняться JavaScript -->
       </div>
     </div>
-  </footer>
+  </div>
+
+  <!-- Footer -->
+    <footer class="footer-section">
+  <div class="foooter_settings">
+    <div class="logo-column">
+      <h2><img src="img/logo2.png" alt="logo2" class="img_settings"></h2>
+      <p>Политика конфиденциальности</p>
+    </div>
+    <div class="footer-content">
+      <div class="footer-col">
+        <ul>
+          <li>Тарифы</li>
+          <li>Стандарты</li>
+          <li>Новости</li>
+          <li>Контакты</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <ul>
+          <li><img src="img/footer_icons/icon3.png" alt="Social Media Icon"> г. Пермь, ул. Кронштадтская, д. 4
+Управляющая компания 
+"ЭРА Семицветие"</li>
+          <li><img src="img/footer_icons/icon4.png" alt="Social Media Icon"> (342) 288-75-79</li>
+          <li><img src="img/footer_icons/icon4.png" alt="Social Media Icon"> +7 (992) 213-14-51</li>
+          <li><img src="img/footer_icons/icon5.png" alt="Social Media Icon"> 7perm@mail.ru</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <script>
+    // Данные для новостей
+    const newsData = {
+      1: {
+        title: "Открытие нового корпуса академии",
+        date: "15 сентября 2023",
+        image: "img/test_img.png",
+        content: `
+          <p>Мы рады сообщить об открытии нового современного корпуса академии "ЭРА Семицветие". Это знаковое событие для нашего образовательного учреждения.</p>
+          <p>Новый корпус оснащен современными лабораториями, просторными аудиториями и комфортными зонами для отдыха студентов. Общая площадь составляет 5000 квадратных метров.</p>
+          <p>В церемонии открытия приняли участие представители министерства образования, партнеры академии и почетные гости. Новый корпус позволит нам принимать на 30% больше студентов и внедрять инновационные образовательные программы.</p>
+          <p>Мы продолжаем инвестировать в развитие инфраструктуры и создание лучших условий для обучения.</p>
+        `
+      },
+      2: {
+        title: "Новые программы обучения",
+        date: "10 сентября 2023",
+        image: "img/test_img.png",
+        content: `
+          <p>Представляем новые образовательные программы для студентов, которые начнут работу с нового учебного года.</p>
+          <p>Среди новинок:</p>
+          <ul>
+            <li>Цифровая трансформация бизнеса</li>
+            <li>Искусственный интеллект и машинное обучение</li>
+            <li>Устойчивое развитие и экологический менеджмент</li>
+            <li>Кибербезопасность и защита данных</li>
+          </ul>
+          <p>Все программы разработаны с учетом современных требований рынка труда и включают практические модули с реальными кейсами от наших партнеров.</p>
+        `
+      },
+      3: {
+        title: "День открытых дверей",
+        date: "5 сентября 2023",
+        image: "img/test_img.png",
+        content: `
+          <p>Приглашаем всех желающих на день открытых дверей в нашей академии, который состоится 20 сентября 2023 года.</p>
+          <p>В программе мероприятия:</p>
+          <ul>
+            <li>Экскурсия по кампусу и новому корпусу</li>
+            <li>Встреча с преподавателями и студентами</li>
+            <li>Мастер-классы по различным направлениям</li>
+            <li>Консультации по поступлению и программам обучения</li>
+          </ul>
+          <p>Это отличная возможность познакомиться с академией, задать вопросы и определиться с выбором образовательной траектории.</p>
+          <p>Регистрация обязательна. Количество мест ограничено.</p>
+        `
+      },
+      4: {
+        title: "Партнерство с ведущей компанией",
+        date: "1 сентября 2023",
+        image: "img/test_img.png",
+        content: `
+          <p>Заключено стратегическое партнерство с международной компанией "TechInnovations". Это открывает новые возможности для наших студентов и преподавателей.</p>
+          <p>В рамках партнерства планируется:</p>
+          <ul>
+            <li>Совместная разработка учебных программ</li>
+            <li>Стажировки для студентов в компании</li>
+            <li>Исследовательские проекты с участием экспертов</li>
+            <li>Оснащение лабораторий современным оборудованием</li>
+          </ul>
+          <p>Партнерство с "TechInnovations" укрепляет позиции нашей академии как ведущего образовательного учреждения в регионе и обеспечивает нашим выпускникам конкурентные преимущества на рынке труда.</p>
+        `
+      }
+    };
+
+    // Функции для работы с всплывающей карточкой
+    function openNewsDetail(newsId) {
+      const news = newsData[newsId];
+      if (news) {
+        document.getElementById('detail-title').textContent = news.title;
+        document.getElementById('detail-date').innerHTML = `<i class="far fa-calendar-alt"></i> ${news.date}`;
+        document.getElementById('detail-image').src = news.image;
+        document.getElementById('detail-text').innerHTML = news.content;
+        
+        document.querySelector('.news-detail-overlay').classList.add('active');
+        document.querySelector('.news-detail-card').classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeNewsDetail() {
+      document.querySelector('.news-detail-overlay').classList.remove('active');
+      document.querySelector('.news-detail-card').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Закрытие по ESC
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeNewsDetail();
+      }
+    });
+
+    // Закрытие при клике на оверлей
+    document.querySelector('.news-detail-overlay').addEventListener('click', closeNewsDetail);
+  </script>
 </body>
 </html>

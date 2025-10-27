@@ -10,6 +10,7 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  
 }
 
 div h1 {
@@ -352,7 +353,8 @@ body {
       padding: 50px 20px 100px; /* Увеличиваем нижний отступ */
       color: white;
       height: 500px; /* Увеличенная высота */
-      border-radius: 20px; /* Скруглённые углы */
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
       overflow: hidden; /* Обязательно, чтобы скругление работало с фоном и псевдоэлементами */
       z-index: 1;
       
@@ -371,7 +373,7 @@ body {
         rgba(0, 0, 0, 0.3) 100%
       );
       z-index: 1;
-      border-radius: 20px; /* Скругление и для псевдоэлемента */
+      
     }
 
     .hero-section > * {
@@ -384,6 +386,7 @@ body {
       flex-direction: column;
       justify-content: center;
       height: 100%;
+      
     }
 
     .hero-section h1 {
@@ -828,7 +831,7 @@ body {
 
 /* Footer Section */
 .footer-section {
-  background-color:#5f043d;
+  background-color: #5f043d;
   color: white;
   padding: 20px;
   margin-top: 30px;
@@ -837,13 +840,18 @@ body {
 
 .footer-section h2 {
   font-size: 36px;
-  margin-bottom: 30px;
+  margin-bottom: 15px; /* Уменьшил отступ */
   color: white;
 }
 
+.footer-section h2 img {
+  width: 270px;
+  height: 70px;
+}
+
 .footer-section img {
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: auto;
   margin-right: 10px;
 }
 
@@ -852,9 +860,31 @@ body {
   text-decoration: none;
 }
 
+.foooter_settings {
+  display: flex;
+  gap: 50px;
+  align-items: flex-start; /* Выравнивание по верху */
+}
+
+.logo-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Выравнивание по левому краю */
+  min-width: 270px; /* Ширина логотипа */
+}
+
+.logo-column p {
+  margin: 0;
+  padding: 0;
+  text-align: left; /* Выравнивание текста по левому краю */
+  width: 100%; /* Занимает всю ширину колонки */
+}
+
 .footer-content {
   display: flex;
   justify-content: space-between;
+  flex: 1; /* Занимает оставшееся пространство */
+  gap: 30px;
 }
 
 .footer-col {
@@ -864,10 +894,17 @@ body {
 .footer-col ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
 }
 
 .footer-col li {
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.img_settings {
+  display: block; /* Чтобы логотип был блочным элементом */
 }
 
 /* Responsive Styles */
